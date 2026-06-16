@@ -1,15 +1,6 @@
-﻿using HidSharp.Utility;
-using LibreHardwareMonitor.Hardware;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Universal_x86_Tuning_Utility.Properties;
-using Universal_x86_Tuning_Utility.Scripts.Misc;
 
 namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
 {
@@ -25,7 +16,7 @@ namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
         private const int WindowSize = 2; // Number of samples in the sliding window
         private static Queue<int> gpuLoadSamples = new Queue<int>();
         private static double averageGpuLoad = 0.0;
-        public static async void UpdateiGPUClock(int maxClock, int minClock, int MaxTemperature, int _powerdraw, int _temperature, int _currentClock, int _gpuLoad, int memClock, int cpuClocks, int minCPUClock, double fps = 0, int fpsLimit = 0)
+        public static void UpdateiGPUClock(int maxClock, int minClock, int MaxTemperature, int _powerdraw, int _temperature, int _currentClock, int _gpuLoad, int memClock, int cpuClocks, int minCPUClock, double fps = 0, int fpsLimit = 0)
         {
             try
             {
@@ -41,7 +32,7 @@ namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
                 // Remove oldest sample if the window is full
                 if (gpuLoadSamples.Count > WindowSize)
                 {
-                    int oldestSample = gpuLastLoadSamples.Dequeue();
+                    int oldestSample = gpuLoadSamples.Dequeue();
                     averageGpuLoad = ((averageGpuLoad * WindowSize) - oldestSample + _gpuLoad) / WindowSize;
                 }
                 else averageGpuLoad = ((averageGpuLoad * (gpuLoadSamples.Count - 1)) + _gpuLoad) / gpuLoadSamples.Count;
@@ -115,9 +106,10 @@ namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
                 gpuLastLoadSamples.Enqueue(_gpuLoad);
                 _lastGpuUsage = (int)_gpuLoad;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { 
+                MessageBox.Show(ex.Message);
+            }
 
         }
     }
 }
-

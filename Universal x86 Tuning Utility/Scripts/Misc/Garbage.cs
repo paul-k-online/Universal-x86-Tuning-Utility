@@ -12,21 +12,9 @@ namespace Universal_x86_Tuning_Utility.Scripts.Misc
     {
         [DllImport("psapi.dll")]
         static extern int EmptyWorkingSet(IntPtr hwProc);
-        public static async Task Garbage_Collect()
+        public static Task Garbage_Collect()
         {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    EmptyWorkingSet(Process.GetCurrentProcess().Handle);
-
-                    long usedMemory = GC.GetTotalMemory(true);
-                });
-            }
-            catch (Exception ex)
-            {
-                DiagnosticLogger.LogError(ex, "Failed to collect garbage");
-            }
+            return Task.CompletedTask;
         }
     }
 }

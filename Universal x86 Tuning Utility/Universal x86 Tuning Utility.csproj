@@ -145,10 +145,17 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="Exists('..\..\AutoOC\AutoOC\bin\Release\net10.0\publish\AutoOC.dll')">
     <Reference Include="AutoOC">
       <HintPath>..\..\AutoOC\AutoOC\bin\Release\net10.0\publish\AutoOC.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <PropertyGroup Condition="Exists('..\..\AutoOC\AutoOC\bin\Release\net10.0\publish\AutoOC.dll')">
+    <DefineConstants>$(DefineConstants);HAS_AUTOOC</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
     <Reference Include="RTSSSharedMemoryNET">
       <HintPath>Assets\RTSS\RTSSSharedMemoryNET.dll</HintPath>
     </Reference>
