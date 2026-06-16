@@ -119,7 +119,7 @@ namespace Universal_x86_Tuning_Utility.Scripts
                         case "Steam":
                             foreach (var game in launcher.Games)
                             {
-                                if (!game.Name.Contains("Steamworks") && !game.Name.Contains("SteamVR") && !game.Name.Contains("Google Earth") && !game.Name.Contains("Wallpaper Engine") && !game.Name.Contains("tModLoader") && !game.Name.Contains("- Original Soundtrack"));
+                                if (!game.Name.Contains("Steamworks") && !game.Name.Contains("SteamVR") && !game.Name.Contains("Google Earth") && !game.Name.Contains("Wallpaper Engine") && !game.Name.Contains("tModLoader") && !game.Name.Contains("- Original Soundtrack"))
                                 {
                                     if (game.Id != "228980")
                                     {
@@ -383,7 +383,7 @@ namespace Universal_x86_Tuning_Utility.Scripts
                             break;
                         case "Microsoft Store":
                             PackageManager pm = new PackageManager();
-                            pm.FindPackage(gameID).GetAppListEntries().First().LaunchAsync();
+                            _ = pm.FindPackage(gameID).GetAppListEntries().First().LaunchAsync();
                             pm = null;
                             break;
                         default: break;
@@ -437,7 +437,7 @@ namespace Universal_x86_Tuning_Utility.Scripts
 
         public static bool BattleNetRunning()
         {
-            Process[] pname = Process.GetProcessesByName("Battle.net.exe");
+            Process[] pname = Process.GetProcessesByName("Battle.net");
             try
             {
                 return pname.Length != 0;

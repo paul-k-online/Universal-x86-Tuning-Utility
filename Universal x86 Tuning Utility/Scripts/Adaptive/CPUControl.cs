@@ -23,12 +23,12 @@ namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
         private static int _lastCO = 0; // CO
         public static int _lastUsage = 0;
 
-
         public static string cpuCommand = "";
         public static string coCommand = "";
-        public static async void UpdatePowerLimit(int temperature, int cpuLoad, int MaxPowerLimit, int MinPowerLimit, int MaxTemperature)
+
+        public static void UpdatePowerLimit(int temperature, int cpuLoad, int MaxPowerLimit, int MinPowerLimit, int MaxTemperature)
         {
-            try { 
+            try {
             if (temperature >= MaxTemperature - 2)
             {
                 // Reduce power limit if temperature is too high
@@ -88,7 +88,6 @@ namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
                 DiagnosticLogger.LogError(ex, "Failed to update power limit");
             }
 
-
             _lastUsage = cpuLoad;
         }
 
@@ -144,7 +143,7 @@ namespace Universal_x86_Tuning_Utility.Scripts.Adaptive
             }
         }
 
-        private static async void UpdateCO(int _newCO)
+        private static void UpdateCO(int _newCO)
         {
             // Apply new CO
             if (_newCO > 0) coCommand = $"--set-coall={Convert.ToUInt32(0x100000 - (uint)(_newCO))} ";
